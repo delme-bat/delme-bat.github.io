@@ -1,0 +1,314 @@
+<!DOCTYPE html><html class="theme-next muse use-motion" lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#222"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css"><meta name="keywords" content="Jenkins,Android,"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2"><meta name="description" content="什么是JenkinsJenkins是一个独立的、开放源码的自动化服务器，它可以用于自动化与构建、测试、交付或部署软件相关的各种任务。官网:https://jenkins.io/用处Jenkins 持续集成可以实现整个流程的自动化，即自动构建 build，上传到指定地址，再下载安装包到指定的环境中进行安装，并进行 BVT 测试。这个流程可以设置每日定时进行，这样就可以加快整个开发过程，使得每个开发人"><meta name="keywords" content="Jenkins,Android"><meta property="og:type" content="article"><meta property="og:title" content="使用Jenkins实现Android自动化打包"><meta property="og:url" content="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/index.html"><meta property="og:site_name" content="Delme-bat&#39;s blog"><meta property="og:description" content="什么是JenkinsJenkins是一个独立的、开放源码的自动化服务器，它可以用于自动化与构建、测试、交付或部署软件相关的各种任务。官网:https://jenkins.io/用处Jenkins 持续集成可以实现整个流程的自动化，即自动构建 build，上传到指定地址，再下载安装包到指定的环境中进行安装，并进行 BVT 测试。这个流程可以设置每日定时进行，这样就可以加快整个开发过程，使得每个开发人"><meta property="og:locale" content="zh-Hans"><meta property="og:image" content="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/jenkins1.png"><meta property="og:image" content="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/jenkins2.png"><meta property="og:image" content="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/jenkins3.png"><meta property="og:image" content="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/jenkins4.png"><meta property="og:image" content="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/jenkins5.png"><meta property="og:image" content="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/jenkins6.png"><meta property="og:image" content="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/jenkins7.png"><meta property="og:image" content="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/jenkins8.png"><meta property="og:image" content="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/jenkins9.png"><meta property="og:image" content="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/jenkins10.png"><meta property="og:image" content="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/jenkins11.png"><meta property="og:image" content="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/jenkins12.png"><meta property="og:updated_time" content="2018-06-27T08:56:58.130Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="使用Jenkins实现Android自动化打包"><meta name="twitter:description" content="什么是JenkinsJenkins是一个独立的、开放源码的自动化服务器，它可以用于自动化与构建、测试、交付或部署软件相关的各种任务。官网:https://jenkins.io/用处Jenkins 持续集成可以实现整个流程的自动化，即自动构建 build，上传到指定地址，再下载安装包到指定的环境中进行安装，并进行 BVT 测试。这个流程可以设置每日定时进行，这样就可以加快整个开发过程，使得每个开发人"><meta name="twitter:image" content="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/jenkins1.png"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Muse",sidebar:{position:"left",display:"post",offset:12,offset_float:12,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!0,tabs:!0,motion:!0,duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/"><title>使用Jenkins实现Android自动化打包 | Delme-bat's blog</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">Delme-bat's blog</span> <span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle">风吹动窗吹动叶声响,梦在游荡去更远地方,天上的月露出半只角,看地上有个人还睡不着</p></div><div class="site-nav-toggle"><button><span class="btn-bar"></span> <span class="btn-bar"></span> <span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i> </span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"><input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="http://delme-bat.github.io/2018/06/12/install_jenkins_in_windows/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="Delme-bat"><meta itemprop="description" content=""><meta itemprop="image" content="https://avatars1.githubusercontent.com/u/17245762?s=460&v=4"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="Delme-bat's blog"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">使用Jenkins实现Android自动化打包</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-12T16:28:01+08:00">2018-06-12 </time></span><span class="post-updated">&nbsp; | &nbsp; <i class="fa fa-calendar-check-o"></i> &nbsp;更新于 <time itemprop="dateUpdated" datetime="2018-06-27T16:56:58+08:00" content="2018-06-27">2018-06-27 </time></span><span class="post-category"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-folder-o"></i> </span><span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Jenkins/" itemprop="url" rel="index"><span itemprop="name">Jenkins</span></a></span></span></div></header><div class="post-body" itemprop="articleBody"><h3 id="什么是Jenkins"><a href="#什么是Jenkins" class="headerlink" title="什么是Jenkins"></a>什么是Jenkins</h3><p>Jenkins是一个独立的、开放源码的自动化服务器，它可以用于自动化与构建、测试、交付或部署软件相关的各种任务。</p><p>官网:<a href="https://jenkins.io/" target="_blank" rel="noopener">https://jenkins.io/</a></p><h3 id="用处"><a href="#用处" class="headerlink" title="用处"></a>用处</h3><blockquote><p>Jenkins 持续集成可以实现整个流程的自动化，即自动构建 build，上传到指定地址，再下载安装包到指定的环境中进行安装，并进行 BVT 测试。这个流程可以设置每日定时进行，这样就可以加快整个开发过程，使得每个开发人员更好的掌握和控制开发流程。</p></blockquote><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><ul><li>war包方式</li><li>msi安装</li></ul><h4 id="war包方式"><a href="#war包方式" class="headerlink" title="war包方式"></a>war包方式</h4><p>下载地址:<a href="http://mirrors.jenkins.io/war-stable/latest/jenkins.war" target="_blank" rel="noopener">Download Jenkins</a></p><p>下载后解决运行下列命令即可</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar jenkins.war --httpPort=8080</span><br></pre></td></tr></table></figure><a id="more"></a><h4 id="下载msi安装包"><a href="#下载msi安装包" class="headerlink" title="下载msi安装包"></a>下载msi安装包</h4><p>其中有两个版本</p><ul><li>Long-term Support (LTS)</li></ul><blockquote><p>LTS（长期支持）版本每隔12周从定期发布流中选择，作为该时间段的稳定发布</p></blockquote><ul><li>Weekly</li></ul><blockquote><p>每周发布一个新版本，以向用户和插件开发人员提供bug修复和功能。</p></blockquote><p>我下载的是Weekly版本,上线应用建议下载LTS版本</p><p>下载地址:<a href="https://jenkins.io/download/thank-you-downloading-windows-installer" target="_blank" rel="noopener">Download Jenkins 2.127 for : Windows</a></p><p>双击安装msi,完成后在服务中停止Jenkins,修改端口</p><p>文件路径在Jenkins\jenkins.xml,改为–httpPort=6060</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">executable</span>&gt;</span>%BASE%\jre\bin\java<span class="tag">&lt;/<span class="name">executable</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">arguments</span>&gt;</span>-Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -jar </span><br><span class="line">  "%BASE%\jenkins.war" --httpPort=6060 --webroot="%BASE%\war"<span class="tag">&lt;/<span class="name">arguments</span>&gt;</span></span><br></pre></td></tr></table></figure><p>在服务中重新启动</p><h3 id="查看并配置"><a href="#查看并配置" class="headerlink" title="查看并配置"></a>查看并配置</h3><ul><li><p>默认端口: <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a></p></li><li><p>修改端口之后的: <a href="http://localhost:6060" target="_blank" rel="noopener">http://localhost:6060</a></p></li></ul><h4 id="解锁jenkins"><a href="#解锁jenkins" class="headerlink" title="解锁jenkins"></a>解锁jenkins</h4><p><img src="/2018/06/12/install_jenkins_in_windows/jenkins1.png" alt="解锁jenkins"></p><h4 id="安装推荐的插件"><a href="#安装推荐的插件" class="headerlink" title="安装推荐的插件"></a>安装推荐的插件</h4><p><img src="/2018/06/12/install_jenkins_in_windows/jenkins2.png" alt="安装推荐的插件"></p><h4 id="安装完成后修改密码"><a href="#安装完成后修改密码" class="headerlink" title="安装完成后修改密码"></a>安装完成后修改密码</h4><h3 id="Jenkins-全局配置"><a href="#Jenkins-全局配置" class="headerlink" title="Jenkins 全局配置"></a>Jenkins 全局配置</h3><h4 id="JDK-和-Gradle-配置"><a href="#JDK-和-Gradle-配置" class="headerlink" title="JDK 和 Gradle 配置"></a>JDK 和 Gradle 配置</h4><p>系统管理 &gt; 全局工具配置 &gt; JDK</p><p><img src="/2018/06/12/install_jenkins_in_windows/jenkins3.png" alt="JDK配置"></p><p>系统管理 &gt; 全局工具配置 &gt; Gradle</p><p><img src="/2018/06/12/install_jenkins_in_windows/jenkins4.png" alt="Gradle配置"></p><h4 id="Android-SDK-配置"><a href="#Android-SDK-配置" class="headerlink" title="Android SDK 配置"></a>Android SDK 配置</h4><p>系统管理 &gt; 全局属性 &gt; 环境变量</p><p><img src="/2018/06/12/install_jenkins_in_windows/jenkins5.png" alt="SDK配置"></p><h3 id="创建-Jenkins-构建任务"><a href="#创建-Jenkins-构建任务" class="headerlink" title="创建 Jenkins 构建任务"></a>创建 Jenkins 构建任务</h3><h4 id="新建任务"><a href="#新建任务" class="headerlink" title="新建任务"></a>新建任务</h4><p><img src="/2018/06/12/install_jenkins_in_windows/jenkins6.png" alt="SDK配置"></p><h4 id="配置基本信息"><a href="#配置基本信息" class="headerlink" title="配置基本信息"></a>配置基本信息</h4><p><img src="/2018/06/12/install_jenkins_in_windows/jenkins7.png" alt="SDK配置"></p><h4 id="配置源码"><a href="#配置源码" class="headerlink" title="配置源码"></a>配置源码</h4><p><img src="/2018/06/12/install_jenkins_in_windows/jenkins8.png" alt="SDK配置"></p><h4 id="配置构建"><a href="#配置构建" class="headerlink" title="配置构建"></a>配置构建</h4><p><img src="/2018/06/12/install_jenkins_in_windows/jenkins9.png" alt="SDK配置"></p><p>release打包<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app:clean</span><br><span class="line">app:assembleRelease</span><br></pre></td></tr></table></figure><p></p><p>debug打包<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app:clean     </span><br><span class="line">app:assembleDebug</span><br></pre></td></tr></table></figure><p></p><h4 id="配置构建后"><a href="#配置构建后" class="headerlink" title="配置构建后"></a>配置构建后</h4><p><img src="/2018/06/12/install_jenkins_in_windows/jenkins10.png" alt="SDK配置"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**/*.apk</span><br></pre></td></tr></table></figure><h4 id="立即构建"><a href="#立即构建" class="headerlink" title="立即构建"></a>立即构建</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BUILD SUCCESSFUL in 4m 3s</span><br><span class="line">26 actionable tasks: 25 executed, 1 up-to-date</span><br><span class="line">Build step &apos;Invoke Gradle script&apos; changed build result to SUCCESS</span><br><span class="line">归档成品</span><br><span class="line">Finished: SUCCESS</span><br></pre></td></tr></table></figure><p>出现了BUILD SUCCESSFUL, 代表任务构建成功</p><p>参考:<a href="https://blog.csdn.net/zhaoyanjun6/article/details/77102359" target="_blank" rel="noopener">Jenkins实现Android自动化打包</a></p><h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><h4 id="反向代理设置有误"><a href="#反向代理设置有误" class="headerlink" title="反向代理设置有误"></a>反向代理设置有误</h4><p>Jenkins URL和浏览器URL不一致导致,都改成<code>scheme://ip:port</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.1.138:8080</span><br></pre></td></tr></table></figure><p>参考:<a href="https://wiki.jenkins.io/display/JENKINS/Jenkins+says+my+reverse+proxy+setup+is+broken" target="_blank" rel="noopener">Jenkins says my reverse proxy setup is broken</a></p><h4 id="‘gradle-bat’-不是内部或外部命令，也不是可运行的程序"><a href="#‘gradle-bat’-不是内部或外部命令，也不是可运行的程序" class="headerlink" title="‘gradle.bat’ 不是内部或外部命令，也不是可运行的程序"></a>‘gradle.bat’ 不是内部或外部命令，也不是可运行的程序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[Gradle] - Launching build.</span><br><span class="line">[AppTest] $ cmd.exe /C &quot;gradle.bat app:clean app:assembleRelease &amp;&amp; exit %%ERRORLEVEL%%&quot;</span><br><span class="line">&apos;gradle.bat&apos; 不是内部或外部命令，也不是可运行的程序或批处理文件。</span><br><span class="line">Build step &apos;Invoke Gradle script&apos; changed build result to FAILURE</span><br><span class="line">Build step &apos;Invoke Gradle script&apos; marked build as failure</span><br><span class="line">Finished: FAILURE</span><br></pre></td></tr></table></figure><p>解决方法:在构建里面选择相应的gradle版本</p><h4 id="首次安装配置完成之后出现首页空白"><a href="#首次安装配置完成之后出现首页空白" class="headerlink" title="首次安装配置完成之后出现首页空白"></a>首次安装配置完成之后出现首页空白</h4><p>重启Jenkins重新打开网页</p><h4 id="构建失败C-Windows-system32-config-systemprofile-…-error-file-not-found"><a href="#构建失败C-Windows-system32-config-systemprofile-…-error-file-not-found" class="headerlink" title="构建失败C:\Windows\system32\config\systemprofile.… error: file not found."></a>构建失败C:\Windows\system32\config\systemprofile.… error: file not found.</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\System32\config\systemprofile\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.0.2.aar</span><br><span class="line">            \3e08b96e74c78baa41badc9dd9c3458f\res\drawable-hdpi-v4\abc_ic_menu_share_mtrl_alpha.png: error: file not found.</span><br></pre></td></tr></table></figure><p>打开cmd</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo %USERDOMAIN%\%USERNAME%</span><br></pre></td></tr></table></figure><p>获取到之后填入,检查名称后无误后点击确定</p><p><img src="/2018/06/12/install_jenkins_in_windows/jenkins11.png" alt="Jenkins10"></p><p>填入该账号的密码确定</p><p><img src="/2018/06/12/install_jenkins_in_windows/jenkins12.png" alt="Jenkins10"></p><p>重启服务</p><p><font color="#A52A2A">注: 该账号的密码不能为空..不然报错</font><br></p><p>参考:<a href="https://antagonisticpleiotropy.blogspot.com/2012/08/running-jenkins-in-windows-with-regular.html" target="_blank" rel="noopener">Running Jenkins in Windows with regular user account to see executables in PATH</a></p><hr><h3 id="相关主题"><a href="#相关主题" class="headerlink" title="相关主题"></a>相关主题</h3><ul><li><a href="https://jenkins.io/" target="_blank" rel="noopener">https://jenkins.io/</a> , Jenkins官网</li><li><a href="http://mirrors.jenkins.io/war-stable/latest/jenkins.war" target="_blank" rel="noopener">http://mirrors.jenkins.io/war-stable/latest/jenkins.war</a> , Jenkins War包下载</li><li><a href="https://jenkins.io/download/thank-you-downloading-windows-installer" target="_blank" rel="noopener">https://jenkins.io/download/thank-you-downloading-windows-installer</a> , Jenkins 安装包下载</li><li><a href="https://blog.csdn.net/zhaoyanjun6/article/details/77102359" target="_blank" rel="noopener">https://blog.csdn.net/zhaoyanjun6/article/details/77102359</a> , Jenkins实现Android自动化打包</li><li><a href="https://wiki.jenkins.io/display/JENKINS/Jenkins+says+my+reverse+proxy+setup+is+broken" target="_blank" rel="noopener">https://wiki.jenkins.io/display/JENKINS/Jenkins+says+my+reverse+proxy+setup+is+broken</a> , 反向代理设置有误</li><li><a href="https://antagonisticpleiotropy.blogspot.com/2012/08/running-jenkins-in-windows-with-regular.html" target="_blank" rel="noopener">https://antagonisticpleiotropy.blogspot.com/2012/08/running-jenkins-in-windows-with-regular.html</a></li><li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-jenkinsintegrate/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/j-lo-jenkinsintegrate/index.html</a> , 使用 Jenkins 实现软件开发的持续集成</li></ul></div><footer class="post-footer"><div class="post-tags"><a href="/tags/Jenkins/" rel="tag"># Jenkins</a> <a href="/tags/Android/" rel="tag"># Android</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2018/05/28/install_ruby_in_windows/" rel="next" title="Windows下配置Ruby on Rails"><i class="fa fa-chevron-left"></i> Windows下配置Ruby on Rails</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"><a href="/2018/06/15/install_sonarqube_in_windows/" rel="prev" title="Windows下配置部署SonarQube">Windows下配置部署SonarQube <i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span> <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span> <span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li><li class="sidebar-nav-overview" data-target="site-overview">站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/17245762?s=460&v=4" alt="Delme-bat"><p class="site-author-name" itemprop="name">Delme-bat</p><p class="site-description motion-element" itemprop="description"></p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href="/archives"><span class="site-state-item-count">14</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"><a href="/categories/index.html"><span class="site-state-item-count">14</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"><a href="/tags/index.html"><span class="site-state-item-count">34</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="links-of-author motion-element"></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Jenkins"><span class="nav-number">1.</span> <span class="nav-text">什么是Jenkins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用处"><span class="nav-number">2.</span> <span class="nav-text">用处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载"><span class="nav-number">3.</span> <span class="nav-text">下载</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#war包方式"><span class="nav-number">3.1.</span> <span class="nav-text">war包方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载msi安装包"><span class="nav-number">3.2.</span> <span class="nav-text">下载msi安装包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看并配置"><span class="nav-number">4.</span> <span class="nav-text">查看并配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解锁jenkins"><span class="nav-number">4.1.</span> <span class="nav-text">解锁jenkins</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装推荐的插件"><span class="nav-number">4.2.</span> <span class="nav-text">安装推荐的插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装完成后修改密码"><span class="nav-number">4.3.</span> <span class="nav-text">安装完成后修改密码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jenkins-全局配置"><span class="nav-number">5.</span> <span class="nav-text">Jenkins 全局配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JDK-和-Gradle-配置"><span class="nav-number">5.1.</span> <span class="nav-text">JDK 和 Gradle 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android-SDK-配置"><span class="nav-number">5.2.</span> <span class="nav-text">Android SDK 配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建-Jenkins-构建任务"><span class="nav-number">6.</span> <span class="nav-text">创建 Jenkins 构建任务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#新建任务"><span class="nav-number">6.1.</span> <span class="nav-text">新建任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置基本信息"><span class="nav-number">6.2.</span> <span class="nav-text">配置基本信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置源码"><span class="nav-number">6.3.</span> <span class="nav-text">配置源码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置构建"><span class="nav-number">6.4.</span> <span class="nav-text">配置构建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置构建后"><span class="nav-number">6.5.</span> <span class="nav-text">配置构建后</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#立即构建"><span class="nav-number">6.6.</span> <span class="nav-text">立即构建</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出现的问题"><span class="nav-number">7.</span> <span class="nav-text">出现的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#反向代理设置有误"><span class="nav-number">7.1.</span> <span class="nav-text">反向代理设置有误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#‘gradle-bat’-不是内部或外部命令，也不是可运行的程序"><span class="nav-number">7.2.</span> <span class="nav-text">‘gradle.bat’ 不是内部或外部命令，也不是可运行的程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#首次安装配置完成之后出现首页空白"><span class="nav-number">7.3.</span> <span class="nav-text">首次安装配置完成之后出现首页空白</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建失败C-Windows-system32-config-systemprofile-…-error-file-not-found"><span class="nav-number">7.4.</span> <span class="nav-text">构建失败C:\Windows\system32\config\systemprofile.… error: file not found.</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关主题"><span class="nav-number">8.</span> <span class="nav-text">相关主题</span></a></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright">&copy; 2016 - <span itemprop="copyrightYear">2018</span> <span class="with-love"><i class="fa fa-heart"></i> </span><span class="author" itemprop="copyrightHolder">Delme-bat</span></div><div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div><div class="theme-info">主题 - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><script type="text/javascript">// Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });</script><script type="text/javascript">$(function(){$.get("https://v1.hitokoto.cn/?encode=json&charset=utf-8",function(t){"f"==t.type||"e"==t.type?$(".site-subtitle").html(t.hitokoto):$(".site-subtitle").html(t.hitokoto+" - "+t.from)})})</script></body></html>

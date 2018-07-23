@@ -1,0 +1,314 @@
+<!DOCTYPE html><html class="theme-next muse use-motion" lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#222"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css"><link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css"><meta name="keywords" content="Android,Android Studio,JUnit,Mockito,Espresso,"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2"><meta name="description" content="概念单元测试（英语：Unit Testing）又称为模块测试, 是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。意义减少bug快速定位bug提高代码质量减少调试时间安卓单元测试测试类型和位置1.本地单元测试代码位于 module-name/src/test/java/中。这些测试在计算机的本地 Java 虚拟机 (JVM) 上运行。2.仪器测试代码位于 module-name/sr"><meta name="keywords" content="Android,Android Studio,JUnit,Mockito,Espresso"><meta property="og:type" content="article"><meta property="og:title" content="Android Studio单元测试入门"><meta property="og:url" content="http://delme-bat.github.io/2018/06/25/test_apps_on_android/index.html"><meta property="og:site_name" content="Delme-bat&#39;s blog"><meta property="og:description" content="概念单元测试（英语：Unit Testing）又称为模块测试, 是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。意义减少bug快速定位bug提高代码质量减少调试时间安卓单元测试测试类型和位置1.本地单元测试代码位于 module-name/src/test/java/中。这些测试在计算机的本地 Java 虚拟机 (JVM) 上运行。2.仪器测试代码位于 module-name/sr"><meta property="og:locale" content="zh-Hans"><meta property="og:updated_time" content="2018-06-27T08:11:36.816Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Android Studio单元测试入门"><meta name="twitter:description" content="概念单元测试（英语：Unit Testing）又称为模块测试, 是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。意义减少bug快速定位bug提高代码质量减少调试时间安卓单元测试测试类型和位置1.本地单元测试代码位于 module-name/src/test/java/中。这些测试在计算机的本地 Java 虚拟机 (JVM) 上运行。2.仪器测试代码位于 module-name/sr"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Muse",sidebar:{position:"left",display:"post",offset:12,offset_float:12,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!0,tabs:!0,motion:!0,duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="http://delme-bat.github.io/2018/06/25/test_apps_on_android/"><title>Android Studio单元测试入门 | Delme-bat's blog</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">Delme-bat's blog</span> <span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle">风吹动窗吹动叶声响,梦在游荡去更远地方,天上的月露出半只角,看地上有个人还睡不着</p></div><div class="site-nav-toggle"><button><span class="btn-bar"></span> <span class="btn-bar"></span> <span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i><br>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i><br>关于</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i> </span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"><input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="http://delme-bat.github.io/2018/06/25/test_apps_on_android/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="Delme-bat"><meta itemprop="description" content=""><meta itemprop="image" content="https://avatars1.githubusercontent.com/u/17245762?s=460&v=4"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="Delme-bat's blog"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Android Studio单元测试入门</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-25T14:40:00+08:00">2018-06-25 </time></span><span class="post-updated">&nbsp; | &nbsp; <i class="fa fa-calendar-check-o"></i> &nbsp;更新于 <time itemprop="dateUpdated" datetime="2018-06-27T16:11:36+08:00" content="2018-06-27">2018-06-27 </time></span><span class="post-category"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-folder-o"></i> </span><span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span></span></div></header><div class="post-body" itemprop="articleBody"><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><blockquote><p>单元测试（英语：Unit Testing）又称为模块测试, 是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。</p></blockquote><h3 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h3><ul><li>减少bug</li><li>快速定位bug</li><li>提高代码质量</li><li>减少调试时间</li></ul><h3 id="安卓单元测试"><a href="#安卓单元测试" class="headerlink" title="安卓单元测试"></a>安卓单元测试</h3><h4 id="测试类型和位置"><a href="#测试类型和位置" class="headerlink" title="测试类型和位置"></a>测试类型和位置</h4><p>1.本地单元测试</p><p>代码位于 <code>module-name/src/test/java/</code>中。</p><p>这些测试在计算机的本地 Java 虚拟机 (JVM) 上运行。</p><p>2.仪器测试</p><p>代码位于 <code>module-name/src/androidTest/java/</code>中。</p><p>这些测试在硬件设备或模拟器上运行。</p><a id="more"></a><h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>1.打开想测试的代码的 Java 文件</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MathUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (a &gt; b) &#123;</span><br><span class="line">            <span class="keyword">if</span> (a &gt; c) &#123;</span><br><span class="line">                <span class="keyword">return</span> a;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> c;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (b &gt; c) &#123;</span><br><span class="line">                <span class="keyword">return</span> b;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> c;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>2.选中测试的类或方法,右击Go To &gt; Test</p><p>3.在出现的菜单中，点击 Create New Test。</p><p>4.在 Create Test 对话框中，编辑任何字段并选择任何要生成的方法，然后点击 OK。</p><p>5.在 Choose Destination Directory 对话框中，点击想创建的测试类型对应的源集。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.After;</span><br><span class="line"><span class="keyword">import</span> org.junit.Before;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.Assert.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MathUtilTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tearDown</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">max</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        assertEquals(<span class="number">3</span>, MathUtil.max(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)); <span class="comment">// add this test</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h4><p>1.点击工具栏中的 <strong>Sync Project </strong>，确保项目已同步。</p><p>2.在 Project 窗口中，右键点击测试，然后点击 Run。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 test passed - 2ms</span><br></pre></td></tr></table></figure><p>测试完成.</p><h3 id="Mockito测试"><a href="#Mockito测试" class="headerlink" title="Mockito测试"></a>Mockito测试</h3><p>Mockito是一个优秀的用于单元测试的mock框架。</p><blockquote><p>mock测试就是在测试过程中，对于某些不容易构造或者不容易获取的对象，用一个虚拟的对象来创建以便测试的测试方法。</p></blockquote><p>1.添加Mockito依赖</p><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="comment">// junit</span></span><br><span class="line">    testCompile <span class="string">'junit:junit:4.12'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// required if you want to use Mockito for unit tests</span></span><br><span class="line">    testCompile <span class="string">'org.mockito:mockito-core:2.19.0'</span></span><br><span class="line">    <span class="comment">// required if you want to use Mockito for Android tests</span></span><br><span class="line">    androidTestCompile <span class="string">'org.mockito:mockito-android:2.19.0'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>2.测试代码:</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.mockito.Mockito.mock;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.mockito.Mockito.verify;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExampleTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">justTest</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// mock creation</span></span><br><span class="line">        List mockedList = mock(List.class);</span><br><span class="line"></span><br><span class="line">        mockedList.add(<span class="string">"one"</span>);</span><br><span class="line">        mockedList.clear();</span><br><span class="line"></span><br><span class="line">        verify(mockedList).add(<span class="string">"one"</span>);</span><br><span class="line">        verify(mockedList).clear();</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Github地址:<a href="https://github.com/mockito/mockito" target="_blank" rel="noopener">https://github.com/mockito/mockito</a><br>官网:<a href="http://mockito.org" target="_blank" rel="noopener">http://mockito.org</a></p><h3 id="Espresso单元测试"><a href="#Espresso单元测试" class="headerlink" title="Espresso单元测试"></a>Espresso单元测试</h3><p>Espresso是一个Google官方提供的Android应用UI自动化测试框架。</p><ul><li>收录在Android Testing Supporting Library底下的测试框架</li><li>模拟用户操作</li><li>自动等待，直到UI线程Idle，才会执行测试代码</li></ul><p>1.build.gradle例子</p><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'com.android.application'</span></span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">26</span></span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">"com.my.awesome.app"</span></span><br><span class="line">        minSdkVersion <span class="number">15</span></span><br><span class="line">        targetSdkVersion <span class="number">26</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line"></span><br><span class="line">        testInstrumentationRunner <span class="string">"android.support.test.runner.AndroidJUnitRunner"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="comment">// App's dependencies, including test</span></span><br><span class="line">    implementation <span class="string">'com.android.support:support-annotations:27.1.1'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Testing-only dependencies</span></span><br><span class="line">    androidTestImplementation <span class="string">'com.android.support.test:runner:1.0.2'</span></span><br><span class="line">    androidTestImplementation <span class="string">'com.android.support.test:rules:1.0.2'</span></span><br><span class="line">    androidTestImplementation <span class="string">'com.android.support.test.espresso:espresso-core:3.0.2'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>2.测试代码:</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.support.test.rule.ActivityTestRule;</span><br><span class="line"><span class="keyword">import</span> android.support.test.runner.AndroidJUnit4;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.Rule;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> android.support.test.espresso.Espresso.onView;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> android.support.test.espresso.assertion.ViewAssertions.matches;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> android.support.test.espresso.matcher.ViewMatchers.withId;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> android.support.test.espresso.matcher.ViewMatchers.withText;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RunWith</span>(AndroidJUnit4.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExampleInstrumentedTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Rule</span></span><br><span class="line">    <span class="keyword">public</span> ActivityTestRule mActivityRule = <span class="keyword">new</span> ActivityTestRule&lt;&gt;(</span><br><span class="line">            SettingActivity.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//检验tv_cache的本文内容是否匹配“清除缓存”    			</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkCacheText</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        onView(withId(R.id.tv_cache)).check(matches(withText(<span class="string">"清除缓存"</span>)));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>右击Run,Select Deployment Target即可</p><h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><h4 id="Execution-failed-for-task-‘-app-preDebugAndroidTestBuild’"><a href="#Execution-failed-for-task-‘-app-preDebugAndroidTestBuild’" class="headerlink" title="Execution failed for task ‘:app:preDebugAndroidTestBuild’"></a>Execution failed for task ‘:app:preDebugAndroidTestBuild’</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error:Execution failed for task &apos;:app:preDebugAndroidTestBuild&apos;.</span><br><span class="line">&gt; Conflict with dependency &apos;com.android.support:support-annotations&apos; in project &apos;:app&apos;. Resolved versions for app (27.1.0) and test app (27.1.1) differ. </span><br><span class="line">	See https://d.android.com/r/tools/test-apk-dependency-conflicts.html for details.</span><br></pre></td></tr></table></figure><p>see: <a href="https://d.android.com/r/tools/test-apk-dependency-conflicts.html" target="_blank" rel="noopener">https://d.android.com/r/tools/test-apk-dependency-conflicts.html</a></p><p>在dependencies中添加resolutionStrategy.force</p><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line"></span><br><span class="line">    androidTestImplementation <span class="string">'com.android.support.test:runner:1.0.2'</span></span><br><span class="line">    androidTestImplementation <span class="string">'com.android.support.test:rules:1.0.2'</span></span><br><span class="line">    androidTestImplementation <span class="string">'com.android.support.test.espresso:espresso-core:3.0.2'</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">configurations</span>.all &#123;</span><br><span class="line">        resolutionStrategy.force <span class="string">'com.android.support:support-annotations:27.1.0'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="后语"><a href="#后语" class="headerlink" title="后语"></a>后语</h3><p>结合Jacoco代码覆盖率单元测试.</p><ul><li>分析未覆盖部分的代码</li><li>检测出程序中的废代码</li><li>提升代码质量</li></ul><hr><h3 id="相关主题"><a href="#相关主题" class="headerlink" title="相关主题"></a>相关主题</h3><ul><li><a href="https://developer.android.com/studio/test/" target="_blank" rel="noopener">https://developer.android.com/studio/test/</a> , 测试应用 | Android Studio</li><li><a href="https://developer.android.com/training/testing/espresso/setup" target="_blank" rel="noopener">https://developer.android.com/training/testing/espresso/setup</a> , Espresso setup instructions</li><li><a href="http://mockito.org" target="_blank" rel="noopener">http://mockito.org</a> , mockito官网</li></ul></div><footer class="post-footer"><div class="post-tags"><a href="/tags/Android/" rel="tag"># Android</a> <a href="/tags/Android-Studio/" rel="tag"># Android Studio</a> <a href="/tags/JUnit/" rel="tag"># JUnit</a> <a href="/tags/Mockito/" rel="tag"># Mockito</a> <a href="/tags/Espresso/" rel="tag"># Espresso</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/2018/06/15/install_sonarqube_in_windows/" rel="next" title="Windows下配置部署SonarQube"><i class="fa fa-chevron-left"></i> Windows下配置部署SonarQube</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"><a href="/2018/06/26/using_jacoco_with_jenkins/" rel="prev" title="使用Jenkins + SonarQube + Jacoco实现Android测试覆盖率统计">使用Jenkins + SonarQube + Jacoco实现Android测试覆盖率统计 <i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span> <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span> <span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li><li class="sidebar-nav-overview" data-target="site-overview">站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/17245762?s=460&v=4" alt="Delme-bat"><p class="site-author-name" itemprop="name">Delme-bat</p><p class="site-description motion-element" itemprop="description"></p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href="/archives"><span class="site-state-item-count">14</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"><a href="/categories/index.html"><span class="site-state-item-count">14</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"><a href="/tags/index.html"><span class="site-state-item-count">34</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="links-of-author motion-element"></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#意义"><span class="nav-number">2.</span> <span class="nav-text">意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安卓单元测试"><span class="nav-number">3.</span> <span class="nav-text">安卓单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#测试类型和位置"><span class="nav-number">3.1.</span> <span class="nav-text">测试类型和位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试"><span class="nav-number">3.2.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行测试"><span class="nav-number">3.3.</span> <span class="nav-text">运行测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mockito测试"><span class="nav-number">4.</span> <span class="nav-text">Mockito测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Espresso单元测试"><span class="nav-number">5.</span> <span class="nav-text">Espresso单元测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到的问题"><span class="nav-number">6.</span> <span class="nav-text">遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Execution-failed-for-task-‘-app-preDebugAndroidTestBuild’"><span class="nav-number">6.1.</span> <span class="nav-text">Execution failed for task ‘:app:preDebugAndroidTestBuild’</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后语"><span class="nav-number">7.</span> <span class="nav-text">后语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关主题"><span class="nav-number">8.</span> <span class="nav-text">相关主题</span></a></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright">&copy; 2016 - <span itemprop="copyrightYear">2018</span> <span class="with-love"><i class="fa fa-heart"></i> </span><span class="author" itemprop="copyrightHolder">Delme-bat</span></div><div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div><div class="theme-info">主题 - <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script><script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script><script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script><script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script><script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><script type="text/javascript">// Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });</script><script type="text/javascript">$(function(){$.get("https://v1.hitokoto.cn/?encode=json&charset=utf-8",function(t){"f"==t.type||"e"==t.type?$(".site-subtitle").html(t.hitokoto):$(".site-subtitle").html(t.hitokoto+" - "+t.from)})})</script></body></html>
